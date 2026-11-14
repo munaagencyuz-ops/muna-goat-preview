@@ -259,6 +259,147 @@ demoCopy?.addEventListener('click', async () => {
   }
 });
 
+/* Goat-style Motion & Scroll Choreography */
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* 1. Floating Header scroll state */
+const siteHeader = document.getElementById('site-header');
+function syncHeaderScroll() {
+  if (!siteHeader) return;
+  siteHeader.classList.toggle('is-scrolled', window.scrollY > 40);
+}
+window.addEventListener('scroll', syncHeaderScroll, { passive: true });
+syncHeaderScroll();
+
+/* 2. Goat SplitText word-by-word reveal ([data-animation="write-text"]) */
+function splitWordsForReveal(el) {
+  if (el.tagName === 'P') el.classList.add('is-body');
+  el.setAttribute('aria-label', (el.textContent || '').trim());
+  let wordIndex = 0;
+  const walk = (node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const parts = (node.textContent || '').split(/(\s+)/);
+      const frag = document.createDocumentFragment();
+      for (const part of parts) {
+        if (!part) continue;
+        if (/^\s+$/.test(part)) {
+          frag.appendChild(document.createTextNode(part));
+        } else {
+          const span = document.createElement('span');
+          span.className = 'word';
+          span.style.setProperty('--wi', String(wordIndex++));
+          span.textContent = part;
+          frag.appendChild(span);
+        }
+      }
+      node.parentNode?.replaceChild(frag, node);
+    } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName !== 'BR') {
+      [...node.childNodes].forEach(walk);
+    }
+  };
+  [...el.childNodes].forEach(walk);
+}
+
+const writeEls = [...document.querySelectorAll('[data-animation="write-text"]')];
+writeEls.forEach(splitWordsForReveal);
+
+/* 3. Staggered reveal on cards & brands */
+const revealEls = [
+  ...document.querySelectorAll('.work-card'),
+  ...document.querySelectorAll('.brand-cell'),
+  ...document.querySelectorAll('.news-card'),
+];
+revealEls.forEach((el, idx) => {
+  el.classList.add('reveal-item');
+  const col = el.classList.contains('brand-cell') ? idx % 4 : idx % 3;
+  el.style.setProperty('--reveal-delay', `${col * 70}ms`);
+});
+
+const servicesSection = document.getElementById('services');
+
+if (prefersReducedMotion) {
+  writeEls.forEach((el) => el.classList.add('is-revealed'));
+  revealEls.forEach((el) => el.classList.add('is-revealed'));
+  servicesSection?.classList.remove('is-collapsed');
+} else {
+  const revealObs = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const target = entry.target;
+        if (target === servicesSection) {
+          servicesSection.classList.remove('is-collapsed');
+        } else {
+          target.classList.add('is-revealed');
+        }
+        observer.unobserve(target);
+      });
+    },
+    { threshold: 0.14, rootMargin: '0px 0px -40px 0px' },
+  );
+
+  writeEls.forEach((el) => revealObs.observe(el));
+  revealEls.forEach((el) => revealObs.observe(el));
+  if (servicesSection) revealObs.observe(servicesSection);
+}
+
+/* 4. Goat Markets scroll-linked focus list */
+const marketItems = [...document.querySelectorAll('.markets-list li')];
+const marketsSection = document.getElementById('markets');
+const marketsOrb = document.querySelector('.markets-orb');
+let marketsRaf = 0;
+
+function updateMarketsScroll() {
+  marketsRaf = 0;
+  if (prefersReducedMotion || !marketItems.length) return;
+  const vh = window.innerHeight || 900;
+  const centerY = vh * 0.52;
+  for (const li of marketItems) {
+    const rect = li.getBoundingClientRect();
+    const itemCenter = rect.top + rect.height * 0.5;
+    const dist = Math.abs(itemCenter - centerY);
+    const ratio = Math.max(0, 1 - dist / (vh * 0.52));
+    const opacity = 0.28 + ratio * 0.72;
+    const scale = 0.96 + ratio * 0.06;
+    li.style.setProperty('--market-opacity', opacity.toFixed(3));
+    li.style.setProperty('--market-scale', scale.toFixed(3));
+  }
+  if (marketsSection && marketsOrb) {
+    const sRect = marketsSection.getBoundingClientRect();
+    const progress = (vh - sRect.top) / (vh + sRect.height);
+    const shift = (progress - 0.5) * 90;
+    marketsOrb.style.transform = `translateY(calc(-50% + ${shift.toFixed(1)}px))`;
+  }
+}
+
+window.addEventListener(
+  'scroll',
+  () => {
+    if (!marketsRaf) marketsRaf = window.requestAnimationFrame(updateMarketsScroll);
+  },
+  { passive: true },
+);
+updateMarketsScroll();
+
+/* 5. Service fan cards click -> open brief with matching format */
+const serviceFormatMap = {
+  'Медиа и каналы': 'Блогеры (UZ / RU)',
+  'Подбор и аудит авторов': 'Блогеры (UZ / RU)',
+  'Стратегия UZ / RU': 'Амбассадоры',
+  'UGC и Reels продакшн': 'UGC под таргет',
+  'Посевы и 360°': 'Посевы в Telegram',
+};
+document.querySelectorAll('.service-fan-card').forEach((card) => {
+  card.addEventListener('click', () => {
+    const svc = card.getAttribute('data-service-name') || '';
+    const select = document.querySelector('#demo-brief-form select[name="format"]');
+    if (select && serviceFormatMap[svc]) {
+      select.value = serviceFormatMap[svc];
+    }
+    document.getElementById('contact-modal')?.showModal();
+  });
+});
+
 /* News carousel arrows */
 const newsTrack = document.getElementById('news-track');
 document.getElementById('news-prev')?.addEventListener('click', () => {

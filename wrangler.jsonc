@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developers.cloudflare.com/workers/wrangler/config-schema.json",
+  "name": "muna-goat-preview",
+  "account_id": "687fe94fea7c1ae98a9569ef58ba8293",
+  "compatibility_date": "2026-10-28",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "goat.munaagency.uz",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "dist",
+    "html_handling": "auto-trailing-slash"
+  }
+}

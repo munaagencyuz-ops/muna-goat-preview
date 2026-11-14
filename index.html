@@ -84,12 +84,12 @@
     <!-- 2. Bold Wide Display Intro -->
     <section class="intro-section" id="about">
       <div class="container">
-        <h1 class="display-h1">
+        <h1 class="display-h1" data-animation="write-text">
           Добро пожаловать<br />
           в нативные медиа<br />
           Узбекистана
         </h1>
-        <p class="intro-copy">
+        <p class="intro-copy" data-animation="write-text" data-delay="0.12">
           Muna Media запускает инфлюенсер-кампании в Узбекистане и СНГ. Мы объединяем проверенных авторов на узбекском и русском языках, UGC-продакшн под таргет и посевы в Telegram-каналах. Подбираем блогеров по реальным просмотрам, фиксируем права в договоре и сдаём отчёт по данным площадок.
         </p>
       </div>
@@ -200,62 +200,63 @@
     <!-- 4. Trusted Brands Monochromatic Grid -->
     <section class="brands-section" id="brands">
       <div class="container">
-        <h2 class="section-heading-center">Нам доверяют международные<br />и локальные бренды</h2>
+        <h2 class="section-heading-center" data-animation="write-text">Нам доверяют международные<br />и локальные бренды</h2>
         <div class="brands-grid" role="list">
-          <div class="brand-cell" role="listitem">MIRATORG</div>
-          <div class="brand-cell" role="listitem">SalamPay</div>
-          <div class="brand-cell" role="listitem">UNISTREAM</div>
-          <div class="brand-cell" role="listitem">KoronaPay</div>
-          <div class="brand-cell" role="listitem">HUAWEI</div>
-          <div class="brand-cell" role="listitem">Kabrita</div>
-          <div class="brand-cell" role="listitem">Uzbekistan Airways</div>
-          <div class="brand-cell" role="listitem">XIAOMI</div>
-          <div class="brand-cell" role="listitem">UnionPay</div>
-          <div class="brand-cell" role="listitem">HUMO</div>
-          <div class="brand-cell" role="listitem">Yandex Eats</div>
-          <div class="brand-cell" role="listitem">YADEA</div>
-          <div class="brand-cell" role="listitem">NL International</div>
-          <div class="brand-cell" role="listitem">UNICEF · UniSat</div>
-          <div class="brand-cell" role="listitem">OPEN CARD</div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/miratorg.svg" alt="MIRATORG" loading="lazy" /></div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/salampay.png" alt="SalamPay" loading="lazy" /></div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/unistream.png" alt="UNISTREAM" loading="lazy" /></div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/koronapay.svg" alt="KoronaPay" loading="lazy" /></div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/huawei.png" alt="HUAWEI" loading="lazy" /></div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/kabrita.svg" alt="Kabrita" loading="lazy" /></div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/uzairways.svg" alt="Uzbekistan Airways" loading="lazy" /></div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/xiaomi.png" alt="Xiaomi" loading="lazy" /></div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/unionpay.png" alt="UnionPay" loading="lazy" /></div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/humo.png" alt="HUMO" loading="lazy" /></div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/yandex-eats.svg" alt="Yandex Eats" loading="lazy" /></div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/yadea.svg" alt="Yadea" loading="lazy" /></div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/honor.png" alt="HONOR" loading="lazy" /></div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/unicef.png" alt="UNICEF" loading="lazy" /></div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/open.png" alt="Open Card" loading="lazy" /></div>
+          <div class="brand-cell" role="listitem"><img src="./assets/logos/mtsbank.png" alt="MTS Bank" loading="lazy" /></div>
         </div>
       </div>
     </section>
 
     <!-- 5. Dark Full-Service Section with 5 Staggered Cards -->
-    <section class="services-section" id="services">
+    <section class="services-section is-collapsed" id="services">
       <div class="container">
-        <h2 class="services-heading">Агентство инфлюенс-маркетинга<br />полного цикла</h2>
+        <h2 class="services-heading" data-animation="write-text">Агентство инфлюенс-маркетинга<br />полного цикла</h2>
 
         <div class="services-fan">
-          <article class="service-fan-card fan-outer" data-service-name="Медиа и каналы">
+          <article class="service-fan-card fan-outer fan-pos-1" data-service-name="Медиа и каналы">
             <div class="fan-img-wrap">
               <img src="./assets/cases/uzbekistan-airways-cover.webp" alt="Медиа и Telegram PR" loading="eager" />
             </div>
             <h3>Медиа</h3>
           </article>
 
-          <article class="service-fan-card fan-mid" data-service-name="Подбор и аудит авторов">
+          <article class="service-fan-card fan-mid fan-pos-2" data-service-name="Подбор и аудит авторов">
             <div class="fan-img-wrap">
               <img src="./assets/cases/miratorg-cover.webp" alt="Подбор блогеров в Узбекистане" loading="eager" />
             </div>
             <h3>Подбор</h3>
           </article>
 
-          <article class="service-fan-card fan-center" data-service-name="Стратегия UZ / RU">
+          <article class="service-fan-card fan-center fan-pos-3" data-service-name="Стратегия UZ / RU">
             <div class="fan-img-wrap">
               <img src="./assets/cases/salampay-cover.webp" alt="Стратегия инфлюенсер-маркетинга" loading="eager" />
             </div>
             <h3>Стратегия</h3>
           </article>
 
-          <article class="service-fan-card fan-mid" data-service-name="UGC и Reels продакшн">
+          <article class="service-fan-card fan-mid fan-pos-4" data-service-name="UGC и Reels продакшн">
             <div class="fan-img-wrap">
               <img src="./assets/cases/xiaomi-cover.webp" alt="UGC видеопродакшн" loading="eager" />
             </div>
             <h3>Контент</h3>
           </article>
 
-          <article class="service-fan-card fan-outer" data-service-name="Посевы и 360°">
+          <article class="service-fan-card fan-outer fan-pos-5" data-service-name="Посевы и 360°">
             <div class="fan-img-wrap">
               <img src="./assets/cases/yadea-cover.webp" alt="Посевы и омниканальные запуски" loading="eager" />
             </div>
@@ -264,7 +265,7 @@
         </div>
 
         <div class="services-body">
-          <p>
+          <p data-animation="write-text">
             Muna Media строит кампании на измеримом результате. Мы разделяем узбекский и русский потоки, проверяем статистику каждого автора за 10–15 последних выходов, пишем нативные сценарии и передаём права на использование видео в таргетированной рекламе Meta, TikTok и YouTube.
           </p>
           <a class="link-lime" href="#contact-modal" data-open-brief>
@@ -419,7 +420,7 @@
         </a>
       </div>
 
-      <h2 class="footer-headline">Давайте работать<br />вместе</h2>
+      <h2 class="footer-headline" data-animation="write-text">Давайте работать<br />вместе</h2>
 
       <div class="footer-main-grid">
         <div class="footer-col">
